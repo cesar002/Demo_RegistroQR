@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    div(class = "container")
+        div(class = "row")
+            h2(class = "blue-text text-darken-2 center-align") Registrate
+            br
+        div(class = "row")
+            form(action="/registrar", method="post", class  = "col s12 card lime lighten-5 ")
+                div(class = "row ")
+                    div(class = "input-field col s6")
+                        input( placeholder="Nombre", id="nombre", type="text", class = "validate", name = "nombre")
+                        label(for="nombre") Nombre
+                    div(class = "input-field col s6")
+                        input( placeholder="Apellido", id="apellido", type="text", class = "validate", name = "apellido")
+                        label(for="apellido") Apellido
+                div(class = "row ")
+                    div(class = "input-field col s7")
+                        input( placeholder="Pais", id="pais", type="text", class = "validate", name = "ubicacion")
+                        label(for="pais") Pais
+                div(class = "row ")
+                    div(class = "input-field col s7")
+                        input( placeholder="Email", id="email", type="text", class = "validate", name = "email")
+                        label(for="email") Email
+                div(class="row center-align")
+                        button(class = "btn-large  waves-effect waves-light", type= "submit") Registrar
+                        //- input(type="submit", value="Registrar", class= "btn-large  waves-effect waves-light", onclick = "createPersona()")
