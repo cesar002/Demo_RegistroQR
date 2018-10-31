@@ -20,8 +20,15 @@ block content
                         label(for="pais") Pais
                 div(class = "row ")
                     div(class = "input-field col s7")
-                        input( placeholder="Email", id="email", type="text", class = "validate", name = "email")
+                        input( placeholder="Email", id="email", type="email", class = "validate", name = "email")
                         label(for="email") Email
                 div(class="row center-align")
                         button(class = "btn-large  waves-effect waves-light", type= "submit") Registrar
                         //- input(type="submit", value="Registrar", class= "btn-large  waves-effect waves-light", onclick = "createPersona()")
+        div(class = "row" )
+            p #{error}
+
+        #error
+            if error
+                div(class = "row card red darken-2")
+                    span(class = "white-text") error al registrarese, vuelva a intentarlo de nuevo

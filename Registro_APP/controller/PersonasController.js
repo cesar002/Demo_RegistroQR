@@ -1,4 +1,6 @@
 //import mysql from 'mysql';
+var FolioGenerador = require('./FolioGenerator')
+
 const mysql = require('mysql')
 
 const connection = mysql.createConnection({
@@ -31,28 +33,60 @@ function insertarPersona(persona) {
         conectar();
 
         let query = "INSERT INTO registrados SET ?"
-        console.log(persona)
+        // console.log(persona)
         connection.query(query, persona, (err, res) => {
             if(err){
-                // console.log("Error al insertar persona", err)
                 reject("Error al insertar persona", err);
             }
 
-            // console.log("registrada con exito")
             resolve("registrada con exito");
+        })
+    })
+}
 
+function insertarBoleto() {
+    return new Promise((resolve, reject) => {
+        let query = "SELECT MAX(id) AS idPersona FROM registrados"
+        let id;
+        
+        connection.query(query, (err, row) => {
+            if(err){
+                reject("Error al consultar: "+err)
+            }
+
+            if(!row) {
+                reject("No se encontro ese ID")
+            }
+
+            row.map(item => {
+                id = item.idPersona
+            })
+
+            connection.query('INSERT INTO boletos SET ?', {idBoleto: FolioGenerador.generar(), idPersona: id}, (err, sucess) => {
+                if(err){
+                    reject("Error al insertar el boleto");
+                }
+
+                resolve();
+            })
         })
 
     })
-    
 }
 
 exports.insertar = function(req, res, next) {
-    insertarPersona(req.body).then( resolve => {
-        res.send("ok")
-    }).catch(error => {
-        res.send(":C")
+
+    Promise.all([insertarPersona(req.body), insertarBoleto()]).then( sucess => {
+        res.render('registro', {title: 'Registrarse'})
+    }).catch( error => {
+        res.render('registro', {title: 'Registrarse', error: 'Error'})
     })
+
+    // insertarPersona(req.body).then( resolve => {
+    //     res.render('registro', {title: 'Registrarse'})
+    // }).catch(error => {
+    //     res.render('registro', {title: 'Registrarse', error: 'Error'})
+    // })
 }
 
     

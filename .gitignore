@@ -1,5 +1,9 @@
-/Mobile-APP/node_modules
-/Registro_APP/node_modules
 /Mobile-APP/node_modules/**/*
 /Mobile-APP/.expo/*
 /Mobile-APP/npm-debug.*
+/Mobile-APP/node_modules
+
+
+/Registro_APP/node_modules
+/Registro_APP/semantic
+/Registro_APP/public/dist
