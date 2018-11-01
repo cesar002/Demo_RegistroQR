@@ -1,5 +1,6 @@
 //import mysql from 'mysql';
 var FolioGenerador = require('./FolioGenerator')
+var EmailController = require('./EmailController');
 
 const mysql = require('mysql')
 
@@ -44,10 +45,11 @@ function insertarPersona(persona) {
     })
 }
 
-function insertarBoleto() {
+function insertarBoleto(email) {
     return new Promise((resolve, reject) => {
         let query = "SELECT MAX(id) AS idPersona FROM registrados"
         let id;
+        let folioBoleto = FolioGenerador.generar()
         
         connection.query(query, (err, row) => {
             if(err){
@@ -62,12 +64,18 @@ function insertarBoleto() {
                 id = item.idPersona
             })
 
-            connection.query('INSERT INTO boletos SET ?', {idBoleto: FolioGenerador.generar(), idPersona: id}, (err, sucess) => {
+            connection.query('INSERT INTO boletos SET ?', {idBoleto: folioBoleto, idPersona: id}, (err, sucess) => {
                 if(err){
                     reject("Error al insertar el boleto");
                 }
 
-                resolve();
+                EmailController.senEmail(email, folioBoleto).then(succes => {
+                    resolve();
+                }).catch(error => {
+                    reject(console.log(error));
+                })
+
+                
             })
         })
 
@@ -76,17 +84,11 @@ function insertarBoleto() {
 
 exports.insertar = function(req, res, next) {
 
-    Promise.all([insertarPersona(req.body), insertarBoleto()]).then( sucess => {
+    Promise.all([insertarPersona(req.body), insertarBoleto(req.body.email)]).then( sucess => {
         res.render('registro', {title: 'Registrarse'})
     }).catch( error => {
-        res.render('registro', {title: 'Registrarse', error: 'Error'})
+        res.render('registro', {title: 'Registrarse', error: error})
     })
-
-    // insertarPersona(req.body).then( resolve => {
-    //     res.render('registro', {title: 'Registrarse'})
-    // }).catch(error => {
-    //     res.render('registro', {title: 'Registrarse', error: 'Error'})
-    // })
 }
 
     
