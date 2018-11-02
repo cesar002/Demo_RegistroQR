@@ -69,10 +69,11 @@ function insertarBoleto(email) {
                     reject("Error al insertar el boleto");
                 }
 
+                // resolve();
                 EmailController.senEmail(email, folioBoleto).then(succes => {
                     resolve();
                 }).catch(error => {
-                    reject(console.log(error));
+                    reject(error);
                 })
 
                 
@@ -88,6 +89,7 @@ exports.insertar = function(req, res, next) {
         res.render('registro', {title: 'Registrarse'})
     }).catch( error => {
         res.render('registro', {title: 'Registrarse', error: error})
+        console.log(error)
     })
 }
 

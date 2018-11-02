@@ -1,5 +1,6 @@
 /Registro_APP/node_modules
 /Registro_APP/public/dist
+/Registro_APP/public/codes/*.png
 
 /Mobile-APP/node_modules
 
