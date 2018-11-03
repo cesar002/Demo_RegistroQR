@@ -4,19 +4,19 @@ var EmailController = require('./EmailController');
 
 const mysql = require('mysql')
 
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'registroConvencion',
-// })
-
 const connection = mysql.createConnection({
-    host: 'us-cdbr-iron-east-01.cleardb.net',
-    user: 'b91699085c5b06',
-    password: 'b1778e37',
-    database: 'heroku_b8b282901e0c5f8',
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'registroConvencion',
 })
+
+// const connection = mysql.createConnection({
+//     host: 'us-cdbr-iron-east-01.cleardb.net',
+//     user: 'b91699085c5b06',
+//     password: 'b1778e37',
+//     database: 'heroku_b8b282901e0c5f8',
+// })
     
 function conectar() {
     connection.connect((error) => {
@@ -80,15 +80,6 @@ function insertarBoleto(email) {
                 }).catch( error => {
                     reject();
                 } )
-
-                 
-                // EmailController.senEmail(email, folioBoleto).then(succes => {
-                //     resolve();
-                // }).catch(error => {
-                //     reject(error);
-                // })
-
-                
             })
         })
 
