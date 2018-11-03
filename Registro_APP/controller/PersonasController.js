@@ -69,12 +69,18 @@ function insertarBoleto(email) {
                     reject("Error al insertar el boleto");
                 }
 
-                // resolve();
-                EmailController.senEmail(email, folioBoleto).then(succes => {
+                EmailController.sendMail({email: email,codigo: folioBoleto }).then( sucess => {
                     resolve();
-                }).catch(error => {
-                    reject(error);
-                })
+                }).catch( error => {
+                    reject();
+                } )
+
+                 
+                // EmailController.senEmail(email, folioBoleto).then(succes => {
+                //     resolve();
+                // }).catch(error => {
+                //     reject(error);
+                // })
 
                 
             })

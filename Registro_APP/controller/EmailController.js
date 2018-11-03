@@ -35,19 +35,42 @@ function loadTemplate(templateName, params) {
     })
 }
 
-
-
-loadTemplate('boleto',{ email:'soul.unleashed13@gmail.com', codigo:'asqwasd54545445' }).then((result) => {
-    _sendEmail({
-        to: result.params.email,
-        from:'supertopo002@gmail.com',
-        subject: result.email.subject,
-        html: result.email.html,
-        // text: result.email.text
+exports.sendMail = function(userData) {
+    return new Promise((resolve, reject) => {
+        loadTemplate('boleto', userData).then((result) => {
+            _sendEmail({
+                to: result.params.email,
+                from:'supertopo002@gmail.com',
+                subject: result.email.subject,
+                html: result.email.html,
+                // text: result.email.text
+            })
+        
+            QR.generateQRCode(result.params.codigo);
+            resolve();
+        }).catch(error => {
+            reject(error);
+        })
     })
-}).then(() => {
-    QR.generateQRCode('asqwasd54545445')
-})
+    
+}
+
+
+
+
+// loadTemplate('boleto',{ email:'soul.unleashed13@gmail.com', codigo:'wwwwwwwwww5454' }).then((result) => {
+//     _sendEmail({
+//         to: result.params.email,
+//         from:'supertopo002@gmail.com',
+//         subject: result.email.subject,
+//         html: result.email.html,
+//         // text: result.email.text
+//     })
+
+//     QR.generateQRCode(result.params.codigo)
+// }).then(() => {
+    
+// })
 
 // const sendTemplate = transporter.templateSender(
 //     new Email('/templates/boleto'),{
