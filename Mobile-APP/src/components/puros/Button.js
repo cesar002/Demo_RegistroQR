@@ -10,7 +10,7 @@ export default class MyButton extends Component{
     render(){
         return(
             <Button style = {[{backgroundColor: this.props.color, paddingHorizontal: 20, justifyContent: 'center', alignItems: 'center' }]} block
-            onPress = {() =>{ this.props.action() }} >
+                onPress = {() =>{ this.props.action() }} >
                 <Text>{this.props.text}</Text>
             </Button>
         );

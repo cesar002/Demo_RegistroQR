@@ -1,5 +1,5 @@
 export const BUSQUEDA_STATE = 'BUSQUEDA_STATE';
-export const GET_RESULTS = 'GET_RESULTS';
+export const SET_RESULTS = 'SET_RESULTS';
 
 export const initBusqueda = (bState) => {
     return({
@@ -8,9 +8,9 @@ export const initBusqueda = (bState) => {
     });
 }
 
-export const getResults = (result) => {
+export const setResults = (result) => {
     return({
-        type: GET_RESULTS,
+        type: SET_RESULTS,
         payload: { result }
     });
 }

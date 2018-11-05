@@ -8,7 +8,7 @@ export default class LeerQR extends Component {
     render(){
         return(
             
-            <LectorQR />
+            <LectorQR navi={this.props.navigation} />
             
         )
     }

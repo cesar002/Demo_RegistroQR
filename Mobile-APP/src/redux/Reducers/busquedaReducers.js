@@ -1,4 +1,4 @@
-import { BUSQUEDA_STATE, GET_RESULTS } from '../actions/busquedaAction';
+import { BUSQUEDA_STATE, SET_RESULTS } from '../actions/busquedaAction';
 
 export default (state = {}, action) => {
     switch(action.type){
@@ -7,7 +7,7 @@ export default (state = {}, action) => {
                 ...state,
                 busquedaState: action.payload.bState
             }
-        case GET_RESULTS:
+        case SET_RESULTS:
             return {
                 ...state,
                result: action.payload.result

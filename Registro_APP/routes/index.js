@@ -24,6 +24,8 @@ router.post('/registrar', DB.insertar)
 
 router.get('/buscar/:idboleto', ConsultaB.buscarIDBoleto )
 
+router.post('/verificar/:idboleto', ConsultaB.verificarBoleto )
+
 // router.get('/registros/:idboleto', (req, res, next) => {
 //   res.send(req.params.idboleto)
 //   res.json()

@@ -22,13 +22,16 @@ class LectorQR extends Component {
     }
 
     _leerCodigo = ({ type, data }) => {
-        if (data != this.props.codigo){
             this.props.setCode(data)
-            console.warn(this.props);
-            alert(`Codigo leido: ${data}`);
-        }
-        
+            this.navegar();    
     }
+
+    navegar(){
+        let {navigate} = this.props.navi;
+        navigate('LoadingBuscar')
+    }
+
+
 
     render(){
 
@@ -65,7 +68,7 @@ const mapDispatchToProps = dispatch =>{
     return{
         setCode(codigo){
             dispatch(actions.setCode(codigo));
-        }
+        },
     }
 }
 

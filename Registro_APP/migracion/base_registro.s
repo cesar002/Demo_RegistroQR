@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Host:                         localhost
--- Versión del servidor:         5.7.19 - MySQL Community Server (GPL)
--- SO del servidor:              Win64
+-- Host:                         us-cdbr-iron-east-01.cleardb.net
+-- Versión del servidor:         5.5.56-log - MySQL Community Server (GPL)
+-- SO del servidor:              Linux
 -- HeidiSQL Versión:             9.4.0.5125
 -- --------------------------------------------------------
 
@@ -12,20 +12,21 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Volcando estructura de base de datos para registroconvencion
-CREATE DATABASE IF NOT EXISTS `registroconvencion` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `registroconvencion`;
+-- Volcando estructura de base de datos para heroku_b8b282901e0c5f8
+CREATE DATABASE IF NOT EXISTS `heroku_b8b282901e0c5f8` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `heroku_b8b282901e0c5f8`;
 
--- Volcando estructura para tabla registroconvencion.boletos
+-- Volcando estructura para tabla heroku_b8b282901e0c5f8.boletos
 CREATE TABLE IF NOT EXISTS `boletos` (
   `idBoleto` varchar(100) NOT NULL,
   `idPersona` int(11) NOT NULL,
+  PRIMARY KEY (`idBoleto`),
   KEY `idPersona` (`idPersona`),
   CONSTRAINT `idPersona` FOREIGN KEY (`idPersona`) REFERENCES `registrados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- La exportación de datos fue deseleccionada.
--- Volcando estructura para tabla registroconvencion.registrados
+-- Volcando estructura para tabla heroku_b8b282901e0c5f8.registrados
 CREATE TABLE IF NOT EXISTS `registrados` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL DEFAULT '0',
@@ -33,7 +34,18 @@ CREATE TABLE IF NOT EXISTS `registrados` (
   `ubicacion` varchar(100) NOT NULL DEFAULT '0',
   `email` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+
+-- La exportación de datos fue deseleccionada.
+-- Volcando estructura para tabla heroku_b8b282901e0c5f8.verificados
+CREATE TABLE IF NOT EXISTS `verificados` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idBoleto` varchar(100) NOT NULL,
+  `fechaRegistro` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idBoleto` (`idBoleto`),
+  CONSTRAINT `idBoleto` FOREIGN KEY (`idBoleto`) REFERENCES `boletos` (`idBoleto`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=latin1;
 
 -- La exportación de datos fue deseleccionada.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

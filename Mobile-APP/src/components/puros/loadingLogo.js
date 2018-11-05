@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader'
+import { H2 } from 'native-base'
 
 
 export default class LoadingLogo extends Component {
@@ -29,8 +30,16 @@ export default class LoadingLogo extends Component {
     render(){
         return(
             <View>
+                <H2 style = {styles.titulo}> {this.props.titulo} </H2>
                 {this._logoLoading()}
             </View>
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+    titulo: {
+        textAlign: 'center'
+    }
+});

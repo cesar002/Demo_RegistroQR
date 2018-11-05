@@ -89,10 +89,9 @@ function insertarBoleto(email) {
 exports.insertar = function(req, res, next) {
 
     Promise.all([insertarPersona(req.body), insertarBoleto(req.body.email)]).then( sucess => {
-        res.render('registro', {title: 'Registrarse'})
+        res.redirect('/registrarse')
     }).catch( error => {
-        res.render('registro', {title: 'Registrarse', error: error})
-        console.log(error)
+        res.redirect('/registrarse')
     })
 }
 
