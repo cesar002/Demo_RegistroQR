@@ -29,7 +29,7 @@ export default class LoadingLogo extends Component {
 
     render(){
         return(
-            <View>
+            <View style = {styles.container}>
                 <H2 style = {styles.titulo}> {this.props.titulo} </H2>
                 {this._logoLoading()}
             </View>
@@ -41,5 +41,9 @@ export default class LoadingLogo extends Component {
 const styles = StyleSheet.create({
     titulo: {
         textAlign: 'center'
+    },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

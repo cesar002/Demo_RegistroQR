@@ -1,35 +1,39 @@
 const mysql = require('mysql')
 const currentTime = require('./currentTime');
+const config = require('../Config');
 
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'registroConvencion',
-})
+var connection;
 
 
-function _conectar() {
-    connection.connect((error) => {
+function _handleDisconnecter(){
+    connection = mysql.createConnection(config.databaseConfig)
+
+    connection.connect(function(error){
         if(error){
-            console.log("Error al conectar");
-            return
+            console.log('error db: ',error);
+
+            setTimeout(_handleDisconnecter, 2000);
         }
-    
-        console.log("Conexion realizada");
-    })
+    });
+
+
+    connection.on('error', function(err){
+        console.log('db error: ',err);
+
+        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
+            _handleDisconnecter();
+        }else{
+            _handleDisconnecter();
+        }
+    });
+
 }
 
-function _desconectar () {
-    connection.end((error) => {
-        console.log("desconectando:",error)
-    })
-}
 
 function _buscarDatosPorID(idBoleto) {
     return new Promise((resolve, reject) => {
-        _conectar();
+        _handleDisconnecter();
         let query = `SELECT r.id, r.nombre, r.apellido, r.ubicacion, r.email, b.idBoleto FROM boletos AS b INNER JOIN registrados AS r ON (b.idPersona = r.id) WHERE b.idBoleto = '${idBoleto}'`
         // let query = `SELECT * FROM boletos WHERE idBoleto = '4cavx28bcspvtpbtx5eq1k' `
         connection.query(query, (error, row) => {
@@ -47,7 +51,6 @@ function _buscarDatosPorID(idBoleto) {
 
 function _verificarBoleto(idBoleto){
     return new Promise((resolve, reject) => {
-        _conectar();
 
         _buscarDatosPorID(idBoleto).then( result =>{
             let query = ` INSERT INTO verificados SET ? `

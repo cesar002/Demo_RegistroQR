@@ -2,6 +2,7 @@ const EmailTemplate = require('email-templates').EmailTemplate;
 const nodemailer = require('nodemailer');
 const path = require('path');
 const QR = require('./QRImageGenerator');
+const config = require('../Config');
 
 Promise = require('bluebird')
 
@@ -21,8 +22,8 @@ function _sendEmail(obj) {
     transporter.sendMail(obj);
 }
 
-function loadTemplate(templateName, params) {
-    let template = new EmailTemplate(path.join(__dirname, '../templates', templateName));
+function loadTemplate(_templateName, params) {
+    let template = new EmailTemplate(path.join(__dirname, '../templates', _templateName));
 
     return new Promise((resolve, reject) => {
         template.render(params, (err, sucess) => {
@@ -37,7 +38,7 @@ function loadTemplate(templateName, params) {
 
 exports.sendMail = function(userData) {
     return new Promise((resolve, reject) => {
-        loadTemplate('boleto', userData).then((result) => {
+        loadTemplate(config.templateName, userData).then((result) => {
             _sendEmail({
                 to: result.params.email,
                 from:'supertopo002@gmail.com',

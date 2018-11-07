@@ -1,4 +1,4 @@
-import { BUSQUEDA_STATE, SET_RESULTS } from '../actions/busquedaAction';
+import { BUSQUEDA_STATE, SET_RESULTS} from '../actions/busquedaAction';
 
 export default (state = {}, action) => {
     switch(action.type){

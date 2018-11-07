@@ -1,43 +1,52 @@
 //import mysql from 'mysql';
-var FolioGenerador = require('./FolioGenerator')
-var EmailController = require('./EmailController');
-
 const mysql = require('mysql')
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'registroConvencion',
-})
+var FolioGenerador = require('./FolioGenerator')
+var EmailController = require('./EmailController');
+const config = require('../Config');
 
-// const connection = mysql.createConnection({
-//     host: 'us-cdbr-iron-east-01.cleardb.net',
-//     user: 'b91699085c5b06',
-//     password: 'b1778e37',
-//     database: 'heroku_b8b282901e0c5f8',
-// })
-    
-function conectar() {
-    connection.connect((error) => {
+
+var connection;
+
+function _handleDisconnecter(){
+    connection = mysql.createConnection(config.databaseConfig)
+
+    connection.connect(function(error){
         if(error){
-            console.log("Error al conectar");
-            return
+            console.log('error db: ',error);
+
+            setTimeout(_handleDisconnecter, 2000);
         }
-    
-        console.log("Conexion realizada");
-    })
+    });
+
+
+    connection.on('error', function(err){
+        console.log('db error: ',err);
+
+        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
+            _handleDisconnecter();
+        }else{
+            _handleDisconnecter();
+        }
+    });
+
 }
 
-function desconectar () {
-    connection.end((error) => {
-        console.log("desconectando:",error)
-    })
-}
+    
+// function conectar() {
+//     connection.connect((error) => {
+//         if(error){
+//             console.log("Error al conectar");
+//             return
+//         }
+    
+//         console.log("Conexion realizada");
+//     })
+// }
 
 function insertarPersona(persona) {
     return new Promise((resolve, reject) => {
-        conectar();
+        _handleDisconnecter();
 
         let query = "INSERT INTO registrados SET ?"
         // console.log(persona)

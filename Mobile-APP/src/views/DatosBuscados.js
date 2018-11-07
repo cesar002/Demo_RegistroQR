@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
-import { H1,H2,H3,H4, Text } from 'native-base';
+import { H1,H3, Text } from 'native-base';
 
 import Boton from '../components/puros/Button';
 
-import * as action from '../redux/actions/busquedaAction';
-import axiosController from '../controllers/axiosController';
 
 class DatosBuscados extends Component {
 

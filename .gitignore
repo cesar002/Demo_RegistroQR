@@ -3,5 +3,6 @@
 /Registro_APP/public/codes/*.png
 
 /Mobile-APP/node_modules
+/Mobile-APP/.expo
 
 .vscode

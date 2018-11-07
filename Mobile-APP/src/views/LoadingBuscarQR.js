@@ -25,27 +25,11 @@ class Loading extends Component {
             this.props.navigation.navigate('DatosBuscados')
         }).catch( error => {
             // console.warn(error)
-            Alert.alert('Error en la busqueda');
+            Alert.alert('error', 'Error en la busqueda');
             this.props.navigation.navigate('Lector')
         })
     }
 
-
-    navegar(type){
-        let {navigate} = this.props.navigation;
-
-        switch(type){
-            case 'succes':
-                navigate('DatosBuscados')
-                break;
-            case 'error':
-                Alert('No se encontraron esos datos')
-                navigate('Lector')
-                break;
-            default:
-                break;
-        }
-    }
 
 
     render(){
