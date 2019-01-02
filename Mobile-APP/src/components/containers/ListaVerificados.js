@@ -3,6 +3,7 @@ import {StyleSheet, View, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 
 import ListaItem from '../puros/VerificadoItem';
+import TimeController from '../../controllers/TimeController';
 
 
 class ListaVerificados extends Component {
@@ -12,7 +13,7 @@ class ListaVerificados extends Component {
 
     _renderItems(){
         return this.props.verificados.map((item, key) => {
-            return <ListaItem key = {key} idBoleto = {item.idBoleto} nombre = {item.nombre} apellido = {item.apellido}/>
+            return <ListaItem key = {key} idBoleto = {item.idBoleto} nombre = {item.nombre} apellido = {item.apellido} fecha = {TimeController.getDateConvert(item.fechaRegistro)}/>
         })
     }
 

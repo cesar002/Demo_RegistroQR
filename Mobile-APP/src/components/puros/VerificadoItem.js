@@ -22,7 +22,7 @@ export default class VerificadoItem extends Component {
                     </View>
                 </View>
                 <View style = {styles.fecha}>
-                    <Text style = {styles.text}> xxxxx </Text>
+                    <Text style = {styles.text}> {this.props.fecha} </Text>
                 </View>
             </View>
         );
